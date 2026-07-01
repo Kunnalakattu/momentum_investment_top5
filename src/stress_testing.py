@@ -26,10 +26,13 @@ PERIODS = 12
 # Universe classification
 # ─────────────────────────────────────────────────────────────────────────────
 ASSET_CLASSES = {
-    "Equity":      ["VUSA", "EQQQ", "IWDA", "EUNK", "EIMI"],
-    "Bonds":       ["AGGH", "IGLA", "LQDS", "JNKS"],
-    "Commodities": ["SGLN", "CMOD", "WNRG"],
-    "Real Estate": ["IWDP"],
+    "Technology":  ["AAPL", "MSFT", "NVDA", "AMZN", "META", "GOOGL", "AVGO", "AMD"],
+    "Financials":  ["JPM", "BAC", "GS", "V", "MA", "BLK"],
+    "Healthcare":  ["LLY", "UNH", "JNJ", "ABBV", "MRK"],
+    "Consumer":    ["COST", "WMT", "PG", "KO", "PEP"],
+    "Industrials": ["CAT", "GE", "RTX", "DE", "HON", "LIN"],
+    "Energy":      ["XOM", "CVX", "COP", "SLB", "EOG"],
+    "Commodities": ["NEM", "GOLD", "FCX", "SCCO", "RIO", "BHP", "VALE", "MOS"],
 }
 
 
@@ -296,7 +299,7 @@ def print_stress_results(stress_df: pd.DataFrame, tail_risk: dict) -> None:
 
     # Tail risk
     print(f"\n  Tail Risk — Full Period (annualised)")
-    print(f"  {'Metric':<30} {'HRP':>10}  {'VUSA':>10}  {'Ratio':>8}")
+    print(f"  {'Metric':<30} {'HRP':>10}  {'SPY':>10}  {'Ratio':>8}")
     print(f"  {'─'*30} {'─'*10}  {'─'*10}  {'─'*8}")
     print(f"  {'VaR (5%, monthly ann)':30} {tail_risk['hrp_var5']*100:>+9.1f}%  "
           f"{tail_risk['spy_var5']*100:>+9.1f}%  "
@@ -344,7 +347,7 @@ def run_stress_testing(
 
     me_prices = prices.resample("ME").last()
     me_returns = me_prices.pct_change().dropna()
-    bench_col = "VUSA" if "VUSA" in me_returns.columns else me_returns.columns[0]
+    bench_col = "SPY" if "SPY" in me_returns.columns else me_returns.columns[0]
     spy_ret   = me_returns[bench_col]
 
     signals   = load_signals(proc_dir)

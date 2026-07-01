@@ -72,8 +72,8 @@ def run_walk_forward(
             "Sharpe":      hm["Sharpe"],
             "MaxDD %":     hm["MaxDD %"],
             "Calmar":      hm["Calmar"],
-            "VUSA CAGR %":  sm["CAGR %"],
-            "VUSA Sharpe":  sm["Sharpe"],
+            "SPY CAGR %":  sm["CAGR %"],
+            "SPY Sharpe":  sm["Sharpe"],
             "Active CAGR": round(hm["CAGR %"] - sm["CAGR %"], 2) if not np.isnan(hm["CAGR %"]) and not np.isnan(sm["CAGR %"]) else np.nan,
         })
 
@@ -87,8 +87,8 @@ def run_walk_forward(
         "Sharpe":      hm_full["Sharpe"],
         "MaxDD %":     hm_full["MaxDD %"],
         "Calmar":      hm_full["Calmar"],
-        "VUSA CAGR %":  spy_full["CAGR %"],
-        "VUSA Sharpe":  spy_full["Sharpe"],
+        "SPY CAGR %":  spy_full["CAGR %"],
+        "SPY Sharpe":  spy_full["Sharpe"],
         "Active CAGR": round(hm_full["CAGR %"] - spy_full["CAGR %"], 2),
     })
 
@@ -107,7 +107,7 @@ def print_walk_forward_table(df: pd.DataFrame) -> None:
     print(f"  WALK-FORWARD VALIDATION — Momentum → Top-5 → 200DMA → HRP")
     print(f"{'='*85}")
     print(f"  {'Fold':<12} {'N':>3}  {'CAGR%':>7}  {'Sharpe':>7}  {'MaxDD%':>7}  {'Calmar':>7}  "
-          f"{'VUSA%':>6}  {'Alpha':>7}")
+          f"{'SPY%':>6}  {'Alpha':>7}")
     print(f"  {'─'*12} {'─'*3}  {'─'*7}  {'─'*7}  {'─'*7}  {'─'*7}  {'─'*6}  {'─'*7}")
 
     for fold, row in df.iterrows():
@@ -122,7 +122,7 @@ def print_walk_forward_table(df: pd.DataFrame) -> None:
             f"{row['Sharpe']:>7.3f}  "
             f"{row['MaxDD %']:>7.2f}  "
             f"{row['Calmar']:>7.3f}  "
-            f"{row['VUSA CAGR %']:>6.2f}  "
+            f"{row['SPY CAGR %']:>6.2f}  "
             f"{row['Active CAGR']:>7.2f}"
             f"{mark}"
             + ("  ← full" if is_full else "")
@@ -133,7 +133,7 @@ def print_walk_forward_table(df: pd.DataFrame) -> None:
     print(f"\n  Consistency check ({n_tot} annual folds, excl. partial years):")
     print(f"    CAGR > 0       : {n_pos}/{n_tot}  ({n_pos/n_tot*100:.0f}%)")
     print(f"    Sharpe > 0     : {n_sh}/{n_tot}  ({n_sh/n_tot*100:.0f}%)")
-    print(f"    Beat VUSA       : {n_beat}/{n_tot}  ({n_beat/n_tot*100:.0f}%)")
+    print(f"    Beat SPY       : {n_beat}/{n_tot}  ({n_beat/n_tot*100:.0f}%)")
 
     sh_vals = folds["Sharpe"].dropna()
     print(f"    Sharpe median  : {sh_vals.median():.3f}  (range [{sh_vals.min():.3f}, {sh_vals.max():.3f}])")
@@ -155,7 +155,7 @@ def run_walk_forward_pipeline(
 
     bt_rets   = load_backtest_returns(proc_dir)
     hrp_ret   = bt_rets["D: HRP"].dropna()
-    bench_col = "VUSA" if "VUSA" in prices.columns else prices.columns[0]
+    bench_col = "SPY" if "SPY" in prices.columns else prices.columns[0]
     spy_ret   = prices.resample("ME").last()[bench_col].pct_change().dropna()
 
     df = run_walk_forward(hrp_ret, spy_ret, rf_monthly)

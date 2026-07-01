@@ -26,26 +26,30 @@ PERIODS = 12
 
 # Estimated half-spread in bps for each ETF (based on typical bid/ask)
 TYPICAL_SPREAD_BPS = {
-    # US-listed (legacy)
-    "SPY": 0.3, "QQQ": 0.3, "IWM": 0.5, "VGK": 1.0, "EEM": 0.5,
-    "TLT": 0.5, "IEF": 0.5, "SHY": 0.3, "BIL": 0.2,
-    "GLD": 0.5, "SLV": 1.5, "DBC": 1.5, "USO": 1.5, "UNG": 3.0,
-    "VNQ": 0.8,
-    # UCITS — LSE listed (half-spread estimates in bps)
-    "VUSA": 0.5, "EQQQ": 0.5, "R2US": 1.0,
-    "IWDA": 0.5, "VWRP": 0.5, "WSML": 1.5,
-    "EUNK": 1.0, "IJPN": 1.5, "EIMI": 1.0,
-    "NDIA": 2.0, "XCS6": 2.0, "LTMC": 3.0,
-    "QDVE": 1.0, "HEAL": 2.0, "BNKS": 2.0,
-    "WNRG": 2.0, "INSW": 2.0, "MACG": 2.0, "QNTG": 5.0,
-    "IWDP": 2.0, "SGLN": 0.5, "CMOD": 2.0,
-    "AGGH": 1.0, "IGLA": 1.0, "LQDS": 1.5,
-    "JNKS": 2.0, "JPEA": 2.0, "IEAC": 1.5, "JEUG": 1.0,
-    "QDIV": 2.0, "QDVR": 2.0, "QDVS": 3.0,
-    # New country / theme additions
-    "HUKX": 0.5, "HMXJ": 1.5, "HMCA": 2.5,
-    "HKOR": 2.0, "HTWN": 2.0, "HBRL": 3.0, "HCAN": 2.0,
-    "IB01": 0.5, "LOCG": 2.0,
+    # US mega-cap tech / growth
+    "AAPL": 0.1, "MSFT": 0.1, "NVDA": 0.1, "AMZN": 0.2, "META": 0.2,
+    "GOOGL": 0.2, "AVGO": 0.2, "ORCL": 0.3, "CRM": 0.3, "ADBE": 0.3,
+    # Semiconductors
+    "AMD": 0.2, "TSM": 0.3, "QCOM": 0.3, "MU": 0.3, "TXN": 0.3,
+    # Financials
+    "JPM": 0.1, "BAC": 0.1, "GS": 0.2, "MS": 0.2, "BLK": 0.3,
+    "V": 0.1, "MA": 0.1,
+    # Healthcare
+    "LLY": 0.2, "UNH": 0.2, "JNJ": 0.2, "ABBV": 0.2, "MRK": 0.2,
+    # Consumer
+    "COST": 0.2, "WMT": 0.2, "PG": 0.2, "KO": 0.2, "PEP": 0.2,
+    # Industrials
+    "CAT": 0.2, "GE": 0.2, "RTX": 0.3, "DE": 0.3, "HON": 0.3, "LIN": 0.3,
+    # Energy
+    "XOM": 0.2, "CVX": 0.2, "COP": 0.3, "SLB": 0.3, "EOG": 0.3,
+    # Communication / media
+    "NFLX": 0.3, "DIS": 0.3, "UBER": 0.3, "PLTR": 0.3, "SPOT": 0.5, "TMUS": 0.3,
+    # Commodity-related equities
+    "NEM": 0.3, "GOLD": 0.3, "AEM": 0.5, "FCX": 0.3, "SCCO": 0.5,
+    "RIO": 0.5, "BHP": 0.5, "VALE": 0.5,
+    "ADM": 0.3, "BG": 0.5, "MOS": 0.5, "NTR": 0.5,
+    # Index / diversified
+    "SPY": 0.1, "BRK-B": 0.2,
 }
 
 

@@ -30,26 +30,30 @@ AUM_LABELS_GBP = ["£10k", "£100k", "£1M", "£10M", "£100M"]
 # ETF bid-ask spreads (basis points, typical for liquid US ETFs)
 # Source: observed intraday spreads; very conservative (real spreads often tighter)
 TYPICAL_SPREAD_BPS = {
-    # US-listed (legacy)
-    "SPY": 1,   "QQQ": 1,   "IWM": 1,   "VGK": 2,   "EEM": 2,
-    "TLT": 1,   "IEF": 1,   "SHY": 1,   "BIL": 1,
-    "GLD": 1,   "SLV": 2,   "DBC": 2,   "USO": 2,   "UNG": 5,
-    "VNQ": 2,
-    # UCITS — LSE listed (half-spread estimates in bps)
-    "VUSA": 0.5, "EQQQ": 0.5, "R2US": 1.0,
-    "IWDA": 0.5, "VWRP": 0.5, "WSML": 1.5,
-    "EUNK": 1.0, "IJPN": 1.5, "EIMI": 1.0,
-    "NDIA": 2.0, "XCS6": 2.0, "LTMC": 3.0,
-    "QDVE": 1.0, "HEAL": 2.0, "BNKS": 2.0,
-    "WNRG": 2.0, "INSW": 2.0, "MACG": 2.0, "QNTG": 5.0,
-    "IWDP": 2.0, "SGLN": 0.5, "CMOD": 2.0,
-    "AGGH": 1.0, "IGLA": 1.0, "LQDS": 1.5,
-    "JNKS": 2.0, "JPEA": 2.0, "IEAC": 1.5, "JEUG": 1.0,
-    "QDIV": 2.0, "QDVR": 2.0, "QDVS": 3.0,
-    # New country / theme additions
-    "HUKX": 0.5, "HMXJ": 1.5, "HMCA": 2.5,
-    "HKOR": 2.0, "HTWN": 2.0, "HBRL": 3.0, "HCAN": 2.0,
-    "IB01": 0.5, "LOCG": 2.0,
+    # US mega-cap tech / growth
+    "AAPL": 0.1, "MSFT": 0.1, "NVDA": 0.1, "AMZN": 0.2, "META": 0.2,
+    "GOOGL": 0.2, "AVGO": 0.2, "ORCL": 0.3, "CRM": 0.3, "ADBE": 0.3,
+    # Semiconductors
+    "AMD": 0.2, "TSM": 0.3, "QCOM": 0.3, "MU": 0.3, "TXN": 0.3,
+    # Financials
+    "JPM": 0.1, "BAC": 0.1, "GS": 0.2, "MS": 0.2, "BLK": 0.3,
+    "V": 0.1, "MA": 0.1,
+    # Healthcare
+    "LLY": 0.2, "UNH": 0.2, "JNJ": 0.2, "ABBV": 0.2, "MRK": 0.2,
+    # Consumer
+    "COST": 0.2, "WMT": 0.2, "PG": 0.2, "KO": 0.2, "PEP": 0.2,
+    # Industrials
+    "CAT": 0.2, "GE": 0.2, "RTX": 0.3, "DE": 0.3, "HON": 0.3, "LIN": 0.3,
+    # Energy
+    "XOM": 0.2, "CVX": 0.2, "COP": 0.3, "SLB": 0.3, "EOG": 0.3,
+    # Communication / media
+    "NFLX": 0.3, "DIS": 0.3, "UBER": 0.3, "PLTR": 0.3, "SPOT": 0.5, "TMUS": 0.3,
+    # Commodity-related equities
+    "NEM": 0.3, "GOLD": 0.3, "AEM": 0.5, "FCX": 0.3, "SCCO": 0.5,
+    "RIO": 0.5, "BHP": 0.5, "VALE": 0.5,
+    "ADM": 0.3, "BG": 0.5, "MOS": 0.5, "NTR": 0.5,
+    # Index / diversified
+    "SPY": 0.1, "BRK-B": 0.2,
 }
 
 # Commission estimate: £0 for retail (most brokers now), $0.005/share for institutional
@@ -67,25 +71,34 @@ def compute_adv(prices: pd.DataFrame, lookback_days: int = 252) -> pd.Series:
     as a proxy, but here we load actual volume if stored.
     Falls back to published ETF AUM-based ADV estimates when not available.
     """
-    # Estimated 90-day ADV (GBP millions) for LSE-listed UCITS ETFs
-    # Source: LSE SETS order book; conservative 3-year averages converted to USD at ~1.27
-    ADV_GBP_M = {
-        "VUSA": 250,  "EQQQ": 180,  "R2US":  20,
-        "IWDA": 300,  "VWRP": 200,  "WSML":  30,
-        "EUNK":  40,  "IJPN":  25,  "EIMI":  80,
-        "NDIA":  15,  "XCS6":  10,  "LTMC":   5,
-        "QDVE":  30,  "HEAL":  10,  "BNKS":  15,
-        "WNRG":  10,  "INSW":   8,  "MACG":   8,  "QNTG":  2,
-        "IWDP":  20,  "SGLN": 120,  "CMOD":  15,
-        "AGGH":  80,  "IGLA":  60,  "LQDS":  20,
-        "JNKS":  15,  "JPEA":  10,  "IEAC":  25,  "JEUG": 20,
-        "QDIV":  10,  "QDVR":   8,  "QDVS":   5,
-        # New country / theme additions
-        "HUKX": 80,  "HMXJ": 20,  "HMCA": 15,
-        "HKOR": 12,  "HTWN": 15,  "HBRL":  8,  "HCAN": 10,
-        "IB01": 50,  "LOCG": 10,
+    # Estimated 90-day ADV (USD millions) for NYSE/NASDAQ-listed US stocks
+    ADV_USD_M = {
+        # Technology
+        "AAPL": 10000, "MSFT": 5000, "NVDA": 15000, "AMZN": 3000, "META": 2500,
+        "GOOGL": 2000, "AVGO": 2000, "ORCL": 800, "CRM": 600, "ADBE": 600,
+        # Semiconductors
+        "AMD": 2000, "TSM": 1500, "QCOM": 800, "MU": 1200, "TXN": 600,
+        # Financials
+        "JPM": 2500, "BAC": 2000, "GS": 800, "MS": 700, "BLK": 400,
+        "V": 1500, "MA": 1200,
+        # Healthcare
+        "LLY": 2000, "UNH": 1500, "JNJ": 900, "ABBV": 800, "MRK": 800,
+        # Consumer
+        "COST": 1200, "WMT": 800, "PG": 600, "KO": 600, "PEP": 500,
+        # Industrials
+        "CAT": 600, "GE": 800, "RTX": 600, "DE": 400, "HON": 500, "LIN": 400,
+        # Energy
+        "XOM": 2000, "CVX": 1500, "COP": 800, "SLB": 600, "EOG": 500,
+        # Communication / media
+        "NFLX": 1200, "DIS": 800, "UBER": 700, "PLTR": 1200, "SPOT": 400, "TMUS": 600,
+        # Commodity-related equities
+        "NEM": 500, "GOLD": 500, "AEM": 300, "FCX": 1000, "SCCO": 200,
+        "RIO": 400, "BHP": 400, "VALE": 600,
+        "ADM": 300, "BG": 300, "MOS": 300, "NTR": 300,
+        # Index / diversified
+        "SPY": 35000, "BRK-B": 800,
     }
-    adv = pd.Series({t: v * 1e6 * GBP_TO_USD for t, v in ADV_GBP_M.items()})
+    adv = pd.Series({t: v * 1e6 for t, v in ADV_USD_M.items()})
     return adv
 
 

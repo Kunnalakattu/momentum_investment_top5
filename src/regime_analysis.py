@@ -114,8 +114,8 @@ def build_regime_table(
             "HRP MaxDD %":   hm["MaxDD %"],
             "HRP Calmar":    hm["Calmar"],
             "HRP Hit %":     hm["Hit %"],
-            "VUSA CAGR %":    sm["CAGR %"],
-            "VUSA Sharpe":    sm["Sharpe"],
+            "SPY CAGR %":    sm["CAGR %"],
+            "SPY Sharpe":    sm["Sharpe"],
             "Alpha CAGR":    alpha_cagr,
             "Sharpe Diff":   sharpe_diff,
         })
@@ -164,7 +164,7 @@ def rolling_metrics(
 
     return pd.DataFrame({
         "HRP Sharpe":  roll_hrp_sh,
-        "VUSA Sharpe":  roll_spy_sh,
+        "SPY Sharpe":  roll_spy_sh,
         "Active CAGR": roll_alpha,
         "HRP CAGR":    roll_hrp_cagr,
     }, index=pd.DatetimeIndex(dates))
@@ -178,7 +178,7 @@ def print_regime_table(df: pd.DataFrame) -> None:
     print(f"  REGIME ANALYSIS — Momentum → Top-5 → 200DMA → HRP")
     print(f"{'='*95}")
     print(f"  {'Regime':<20} {'N':>3}  {'HRP%':>7}  {'SH':>6}  {'MaxDD':>7}  "
-          f"{'VUSA%':>7}  {'Alpha':>7}  {'ΔSharpe':>8}  Type")
+          f"{'SPY%':>7}  {'Alpha':>7}  {'ΔSharpe':>8}  Type")
     print(f"  {'─'*20} {'─'*3}  {'─'*7}  {'─'*6}  {'─'*7}  "
           f"{'─'*7}  {'─'*7}  {'─'*8}  {'─'*25}")
 
@@ -191,18 +191,18 @@ def print_regime_table(df: pd.DataFrame) -> None:
             f"{row['HRP CAGR %']:>7.2f}  "
             f"{row['HRP Sharpe']:>6.3f}  "
             f"{row['HRP MaxDD %']:>7.2f}  "
-            f"{row['VUSA CAGR %']:>7.2f}  "
+            f"{row['SPY CAGR %']:>7.2f}  "
             f"{alpha:>+7.2f}  "
             f"{sdiff:>+8.3f}  "
             f"{row['Type']}"
         )
 
-    print(f"\n  Where momentum WINS vs VUSA:")
+    print(f"\n  Where momentum WINS vs SPY:")
     wins  = df[df["Alpha CAGR"] > 0]
     fails = df[df["Alpha CAGR"] <= 0]
     for r, row in wins.iterrows():
         print(f"    ★ {r:<20}  alpha={row['Alpha CAGR']:+.1f}%  ({row['Type']})")
-    print(f"\n  Where momentum FAILS vs VUSA:")
+    print(f"\n  Where momentum FAILS vs SPY:")
     for r, row in fails.iterrows():
         print(f"    ✗ {r:<20}  alpha={row['Alpha CAGR']:+.1f}%  ({row['Type']})")
     print(f"{'='*95}")
@@ -224,7 +224,7 @@ def run_regime_analysis(
 
     bt_rets = load_backtest_returns(proc_dir)
     hrp_ret = bt_rets["D: HRP"].dropna()
-    bench_col = "VUSA" if "VUSA" in prices.columns else prices.columns[0]
+    bench_col = "SPY" if "SPY" in prices.columns else prices.columns[0]
     spy_ret = prices.resample("ME").last()[bench_col].pct_change().dropna()
 
     regime_df  = build_regime_table(hrp_ret, spy_ret, rf_monthly)

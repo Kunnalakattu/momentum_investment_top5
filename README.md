@@ -1,13 +1,13 @@
 # Momentum Investment System — Top 5 ETF Portfolio
 
-A systematic, rules-based cross-asset momentum strategy that selects the top 5 ETFs from a 32-asset UCITS universe each month, filtered by a 200-day moving average trend rule and weighted using Hierarchical Risk Parity (HRP). All ETFs are LSE-listed UCITS funds, accessible to UK/EU investors.
+A systematic, rules-based momentum strategy that selects the top 5 stocks from a 63-stock US equity universe each month, filtered by a 200-day moving average trend rule and weighted using Hierarchical Risk Parity (HRP). All stocks trade on NYSE/NASDAQ and are accessible globally.
 
 ## Strategy Summary
 
 | Metric | Value |
 |--------|-------|
-| Universe | 32 UCITS ETFs across 7 asset classes |
-| Selection | Top 5 by composite momentum score (3M / 6M / 12M) |
+| Universe | 63 US stocks across 10 sectors |
+| Selection | Top 5 stocks by composite momentum score (3M / 6M / 12M) |
 | Filter | Price > 200-day moving average |
 | Weighting | Hierarchical Risk Parity (HRP) |
 | Rebalancing | Monthly |
@@ -16,17 +16,20 @@ A systematic, rules-based cross-asset momentum strategy that selects the top 5 E
 | Max Drawdown | ~-13% |
 | Governance | 7/8 PASS → GO |
 
-## Universe (41 UCITS ETFs, LSE-listed)
+## Universe (63 US stocks, NYSE/NASDAQ)
 
-| Category | Tickers | Coverage |
-|----------|---------|----------|
-| US Equity | VUSA, EQQQ, R2US | S&P 500, Nasdaq-100, Russell 2000 |
-| World Equity | IWDA, VWRP, WSML | Developed world, All-world, Small cap |
-| Regional | EUNK, HUKX, HMXJ, IJPN, EIMI, NDIA, XCS6, HMCA, HKOR, HTWN, HBRL, HCAN, LTMC | Europe, UK, Pacific ex-Japan, Japan, EM, India, China H&A, Korea, Taiwan, Brazil, Canada, LatAm |
-| Sectors | QDVE, HEAL, BNKS, WNRG, INSW, MACG, QNTG | Tech, Health, Banks, Energy, Industrials, Staples, Quantum |
-| Real Assets | IWDP, SGLN, CMOD | REITs, Gold, Commodities |
-| Bonds | IB01, AGGH, IGLA, LQDS, JNKS, JPEA, LOCG, IEAC, JEUG | Cash proxy, Global agg, Govt, IG corp, HY, EM USD, EM local, EUR corp, EUR govt |
-| Factor/ESG | QDIV, QDVR, QDVS | Quality dividend, SRI, EM SRI |
+| Sector | Tickers |
+|--------|---------|
+| Technology | AAPL, MSFT, NVDA, AMZN, META, GOOGL, AVGO, ORCL, CRM, ADBE |
+| Semiconductors | AMD, TSM, QCOM, MU, TXN |
+| Financials | JPM, BAC, GS, MS, BLK, V, MA |
+| Healthcare | LLY, UNH, JNJ, ABBV, MRK |
+| Consumer | COST, WMT, PG, KO, PEP |
+| Industrials | CAT, GE, RTX, DE, HON, LIN |
+| Energy | XOM, CVX, COP, SLB, EOG |
+| Communication | NFLX, DIS, UBER, PLTR, SPOT, TMUS |
+| Commodities | NEM, GOLD, AEM, FCX, SCCO, RIO, BHP, VALE, ADM, BG, MOS, NTR |
+| Index/Other | SPY (benchmark), BRK-B |
 
 ## Project Structure
 
@@ -146,6 +149,7 @@ Thresholds are fixed before investing and never adjusted retroactively.
 
 - Past backtest performance does not guarantee future results.
 - This system is for informational purposes. Always do your own due diligence.
-- ETFs are LSE-listed in GBP. Underlying asset currency risk still applies (e.g. USD-hedged vs unhedged share classes).
-- The strategy can underperform a simple world tracker during strong bull markets (e.g. 2023–2024 US tech rally).
-- At £1,000 portfolio size, whole-share rounding means some positions may not be fully funded — enable fractional shares if your broker supports it.
+- Stocks trade in USD on NYSE/NASDAQ. Non-US investors carry currency risk.
+- The strategy can underperform the S&P 500 during narrow-breadth bull markets (e.g. 2023–2024 mega-cap tech dominance).
+- At small portfolio sizes, high share prices (e.g. COST ~$900, NVR) mean whole-share rounding can leave significant cash uninvested — enable fractional shares if your broker supports it.
+- Newer stocks (PLTR, UBER, SPOT) may have limited backtest history and will be excluded from signals until they have sufficient data.

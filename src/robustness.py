@@ -34,11 +34,11 @@ N_TOP       = 5
 METHOD      = "hrp"
 START_DATE  = "2010-01-04"
 
-# UCITS universe subsets for robustness testing (tickers without .L suffix)
-UNIVERSE_10 = ["VUSA", "EQQQ", "IWDA", "EIMI", "SGLN", "AGGH", "IGLA", "IWDP", "EUNK", "CMOD"]
-UNIVERSE_15 = UNIVERSE_10 + ["VWRP", "IJPN", "WNRG", "BNKS", "JNKS"]
-UNIVERSE_20_ADD = ["QDVE", "HEAL", "NDIA", "XCS6", "R2US"]
-UNIVERSE_30_ADD = UNIVERSE_20_ADD + ["WSML", "LTMC", "LQDS", "JPEA", "IEAC", "JEUG", "QDIV", "QDVR", "QDVS", "QNTG"]
+# US stock universe subsets for robustness testing
+UNIVERSE_10 = ["AAPL", "MSFT", "JPM", "JNJ", "XOM", "KO", "V", "COST", "NEM", "MA"]
+UNIVERSE_15 = UNIVERSE_10 + ["NVDA", "GOOGL", "LLY", "CAT", "CVX"]
+UNIVERSE_20_ADD = ["META", "AMZN", "UNH", "GE", "FCX"]
+UNIVERSE_30_ADD = UNIVERSE_20_ADD + ["AVGO", "ORCL", "GS", "RTX", "SLB", "BHP", "RIO", "MRK", "WMT", "BAC"]
 
 
 # ─────────────────────────────────────────────────────────────────────────────

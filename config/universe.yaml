@@ -1,106 +1,90 @@
 universe:
-  us_equity:
-    - VUSA    # S&P 500                     (Vanguard)
-    - EQQQ    # Nasdaq-100                  (Invesco)
-    - R2US    # Russell 2000 US small cap   (iShares)
+  technology:
+    - AAPL    # Apple
+    - MSFT    # Microsoft
+    - NVDA    # NVIDIA
+    - AMZN    # Amazon
+    - META    # Meta Platforms
+    - GOOGL   # Alphabet
+    - AVGO    # Broadcom
+    - ORCL    # Oracle
+    - CRM     # Salesforce
+    - ADBE    # Adobe
 
-  world_equity:
-    - IWDA    # MSCI World developed        (iShares, largest AUM)
-    - VWRP    # FTSE All-World incl. EM     (Vanguard, accumulating)
-    - WSML    # MSCI World Small Cap        (iShares)
+  semiconductors:
+    - AMD     # AMD
+    - TSM     # Taiwan Semiconductor (ADR)
+    - QCOM    # Qualcomm
+    - MU      # Micron Technology
+    - TXN     # Texas Instruments
 
-  regional_equity:
-    - EUNK    # MSCI Europe                 (iShares)
-    - HUKX    # FTSE 100 UK                 (HSBC)
-    - HMXJ    # MSCI Pacific ex Japan       (HSBC)
-    - IJPN    # MSCI Japan                  (iShares)
-    - EIMI    # MSCI EM IMI (broadest EM)   (iShares)
-    - NDIA    # MSCI India                  (iShares)
-    - XCS6    # MSCI China H shares         (HSBC)
-    - HMCA    # MSCI China A shares         (HSBC — different market from H)
-    - HKOR    # MSCI Korea                  (HSBC)
-    - HTWN    # MSCI Taiwan                 (HSBC)
-    - HBRL    # MSCI Brazil                 (HSBC)
-    - HCAN    # MSCI Canada                 (HSBC)
-    - LTMC    # Latin America               (iShares)
+  financials:
+    - JPM     # JPMorgan Chase
+    - BAC     # Bank of America
+    - GS      # Goldman Sachs
+    - MS      # Morgan Stanley
+    - BLK     # BlackRock
+    - V       # Visa
+    - MA      # Mastercard
 
-  sectors:
-    - QDVE    # S&P 500 IT / Technology     (iShares)
-    - HEAL    # Global Healthcare           (iShares)
-    - BNKS    # Global Banks                (iShares)
-    - WNRG    # Global Energy               (iShares)
-    - INSW    # Global Industrials          (iShares)
-    - MACG    # Global Consumer Staples     (iShares)
-    - QNTG    # Quantum Computing thematic  (WisdomTree)
+  healthcare:
+    - LLY     # Eli Lilly
+    - UNH     # UnitedHealth
+    - JNJ     # Johnson & Johnson
+    - ABBV    # AbbVie
+    - MRK     # Merck
 
-  real_assets:
-    - IWDP    # Global Property / REITs     (iShares)
-    - SGLN    # Physical Gold               (iShares, largest AUM)
-    - CMOD    # Broad Commodities           (iShares)
+  consumer:
+    - COST    # Costco
+    - WMT     # Walmart
+    - PG      # Procter & Gamble
+    - KO      # Coca-Cola
+    - PEP     # PepsiCo
 
-  bonds:
-    - IB01    # US Treasury 0-1Y            (iShares — cash proxy / defensive)
-    - AGGH    # Global Aggregate            (iShares)
-    - IGLA    # Global Government Bond      (iShares)
-    - LQDS    # USD Investment-Grade Corp   (iShares, GBP listing)
-    - JNKS    # US High Yield               (iShares)
-    - JPEA    # EM Bonds USD                (iShares)
-    - LOCG    # EM Local Govt Bonds         (iShares — local currency, different from JPEA)
-    - IEAC    # Euro Corporate Bond         (iShares)
-    - JEUG    # Euro Government Bonds       (iShares)
+  industrials:
+    - CAT     # Caterpillar
+    - GE      # GE Aerospace
+    - RTX     # RTX Corporation
+    - DE      # Deere & Company
+    - HON     # Honeywell
+    - LIN     # Linde
 
-  factor_esg:
-    - QDIV    # MSCI USA Quality Dividend   (iShares)
-    - QDVR    # MSCI USA SRI                (iShares)
-    - QDVS    # MSCI EM SRI                 (iShares)
+  energy:
+    - XOM     # ExxonMobil
+    - CVX     # Chevron
+    - COP     # ConocoPhillips
+    - SLB     # SLB (Schlumberger)
+    - EOG     # EOG Resources
 
-# Approximate UCITS annual expense ratios (as fraction, not %)
-expense_ratios:
-  VUSA: 0.0007
-  EQQQ: 0.0030
-  R2US: 0.0010
-  IWDA: 0.0020
-  VWRP: 0.0022
-  WSML: 0.0035
-  EUNK: 0.0012
-  HUKX: 0.0007
-  HMXJ: 0.0015
-  IJPN: 0.0012
-  EIMI: 0.0018
-  NDIA: 0.0065
-  XCS6: 0.0060
-  HMCA: 0.0030
-  HKOR: 0.0020
-  HTWN: 0.0020
-  HBRL: 0.0025
-  HCAN: 0.0020
-  LTMC: 0.0074
-  QDVE: 0.0020
-  HEAL: 0.0025
-  BNKS: 0.0025
-  WNRG: 0.0025
-  INSW: 0.0025
-  MACG: 0.0025
-  QNTG: 0.0040
-  IWDP: 0.0059
-  SGLN: 0.0012
-  CMOD: 0.0019
-  IB01: 0.0007
-  AGGH: 0.0010
-  IGLA: 0.0010
-  LQDS: 0.0020
-  JNKS: 0.0050
-  JPEA: 0.0045
-  LOCG: 0.0045
-  IEAC: 0.0020
-  JEUG: 0.0009
-  QDIV: 0.0020
-  QDVR: 0.0020
-  QDVS: 0.0025
+  communication:
+    - NFLX    # Netflix
+    - DIS     # Disney
+    - UBER    # Uber
+    - PLTR    # Palantir
+    - SPOT    # Spotify
+    - TMUS    # T-Mobile
+
+  commodities:
+    - NEM     # Newmont (gold mining)
+    - GOLD    # Barrick Gold
+    - AEM     # Agnico Eagle
+    - FCX     # Freeport-McMoRan (copper)
+    - SCCO    # Southern Copper
+    - RIO     # Rio Tinto (ADR)
+    - BHP     # BHP Group (ADR)
+    - VALE    # Vale (ADR, iron ore)
+    - ADM     # Archer-Daniels-Midland
+    - BG      # Bunge (agriculture)
+    - MOS     # Mosaic (fertilizers)
+    - NTR     # Nutrien (agriculture)
+
+  index:
+    - SPY     # S&P 500 ETF (benchmark / market exposure)
+    - BRK-B   # Berkshire Hathaway B
 
 data:
-  start_date: "2010-01-04"      # 2010 — gives most UCITS ETFs enough history
-  exchange_suffix: ".L"         # LSE suffix appended for yfinance download
+  start_date: "2010-01-04"      # 2010 — most large-caps have 15+ years of history
+  exchange_suffix: ""            # US stocks — no suffix needed for yfinance
   risk_free_ticker: "^IRX"      # 13-week T-bill annualised (%)
   price_col: "Close"
   raw_dir: "data/raw"
