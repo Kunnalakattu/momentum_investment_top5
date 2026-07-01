@@ -1,46 +1,69 @@
 universe:
-  equity:
-    - SPY
-    - QQQ
-    - IWM
-    - VGK
-    - EEM
-  bonds:
-    - TLT
-    - IEF
-    - SHY
-  commodities:
-    - GLD
-    - SLV
-    - DBC
-    - USO
-    - UNG
-  real_assets:
-    - VNQ
-  cash_proxy:
-    - BIL
+  us_equity:
+    - VUSA    # S&P 500                     (Vanguard)
+    - EQQQ    # Nasdaq-100                  (Invesco)
+    - R2US    # Russell 2000 US small cap   (iShares)
 
-# Annual expense ratios (as fraction, not %)
+  world_equity:
+    - IWDA    # MSCI World developed        (iShares, largest AUM)
+    - VWRP    # FTSE All-World incl. EM     (Vanguard, accumulating)
+    - WSML    # MSCI World Small Cap        (iShares)
+
+  regional_equity:
+    - EUNK    # MSCI Europe                 (iShares)
+    - IJPN    # MSCI Japan                  (iShares)
+    - EIMI    # MSCI EM IMI (broadest EM)   (iShares)
+    - NDIA    # MSCI India                  (iShares)
+    - XCS6    # MSCI China                  (HSBC)
+    - LTMC    # Latin America               (iShares)
+
+  sectors:
+    - QDVE    # S&P 500 IT / Technology     (iShares)
+    - HEAL    # Global Healthcare           (iShares)
+    - BNKS    # Global Banks                (iShares)
+    - WNRG    # Global Energy               (iShares)
+    - INSW    # Global Industrials          (iShares)
+    - MACG    # Global Consumer Staples     (iShares)
+    - QNTG    # Quantum Computing thematic  (WisdomTree)
+
+  real_assets:
+    - IWDP    # Global Property / REITs     (iShares)
+    - SGLN    # Physical Gold               (iShares, largest AUM)
+    - CMOD    # Broad Commodities           (iShares)
+
+  bonds:
+    - AGGH    # Global Aggregate            (iShares)
+    - IGLA    # Global Government Bond      (iShares)
+    - LQDS    # USD Investment-Grade Corp   (iShares, GBP listing)
+    - JNKS    # US High Yield               (iShares)
+    - JPEA    # EM Bonds                    (iShares)
+    - IEAC    # Euro Corporate Bond         (iShares)
+    - JEUG    # Euro Government Bonds       (iShares)
+
+  factor_esg:
+    - QDIV    # MSCI USA Quality Dividend   (iShares)
+    - QDVR    # MSCI USA SRI                (iShares)
+    - QDVS    # MSCI EM SRI                 (iShares)
+
+# Approximate UCITS annual expense ratios (as fraction, not %)
 expense_ratios:
-  SPY: 0.000945
-  QQQ: 0.0020
-  IWM: 0.0019
-  VGK: 0.0011
-  EEM: 0.0070
-  TLT: 0.0015
-  IEF: 0.0015
-  SHY: 0.0015
-  GLD: 0.0040
-  SLV: 0.0050
-  DBC: 0.0085
-  USO: 0.0081
-  UNG: 0.0060
-  VNQ: 0.0012
-  BIL: 0.00135
+  VUSA: 0.0007   EQQQ: 0.0030   R2US: 0.0010
+  IWDA: 0.0020   VWRP: 0.0022   WSML: 0.0035
+  EUNK: 0.0012   IJPN: 0.0012   EIMI: 0.0018
+  NDIA: 0.0065   XCS6: 0.0060   LTMC: 0.0074
+  QDVE: 0.0020   HEAL: 0.0025   BNKS: 0.0025
+  WNRG: 0.0025   INSW: 0.0025   MACG: 0.0025
+  QNTG: 0.0040
+  IWDP: 0.0059   SGLN: 0.0012   CMOD: 0.0019
+  AGGH: 0.0010   IGLA: 0.0010   LQDS: 0.0020
+  JNKS: 0.0050   JPEA: 0.0045   IEAC: 0.0020
+  JEUG: 0.0009
+  QDIV: 0.0020   QDVR: 0.0020   QDVS: 0.0025
 
 data:
-  start_date: "2005-01-03"
-  risk_free_ticker: "^IRX"   # 13-week T-bill annualized (%)
-  price_col: "Close"         # yfinance adjusted close column
+  start_date: "2010-01-04"      # 2010 — gives most UCITS ETFs enough history
+  exchange_suffix: ".L"         # LSE suffix appended for yfinance download
+  risk_free_ticker: "^IRX"      # 13-week T-bill annualised (%)
+  price_col: "Close"
   raw_dir: "data/raw"
   processed_dir: "data/processed"

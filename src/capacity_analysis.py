@@ -30,10 +30,22 @@ AUM_LABELS_GBP = ["£10k", "£100k", "£1M", "£10M", "£100M"]
 # ETF bid-ask spreads (basis points, typical for liquid US ETFs)
 # Source: observed intraday spreads; very conservative (real spreads often tighter)
 TYPICAL_SPREAD_BPS = {
+    # US-listed (legacy)
     "SPY": 1,   "QQQ": 1,   "IWM": 1,   "VGK": 2,   "EEM": 2,
     "TLT": 1,   "IEF": 1,   "SHY": 1,   "BIL": 1,
     "GLD": 1,   "SLV": 2,   "DBC": 2,   "USO": 2,   "UNG": 5,
     "VNQ": 2,
+    # UCITS — LSE listed (half-spread estimates in bps)
+    "VUSA": 0.5, "EQQQ": 0.5, "R2US": 1.0,
+    "IWDA": 0.5, "VWRP": 0.5, "WSML": 1.5,
+    "EUNK": 1.0, "IJPN": 1.5, "EIMI": 1.0,
+    "NDIA": 2.0, "XCS6": 2.0, "LTMC": 3.0,
+    "QDVE": 1.0, "HEAL": 2.0, "BNKS": 2.0,
+    "WNRG": 2.0, "INSW": 2.0, "MACG": 2.0, "QNTG": 5.0,
+    "IWDP": 2.0, "SGLN": 0.5, "CMOD": 2.0,
+    "AGGH": 1.0, "IGLA": 1.0, "LQDS": 1.5,
+    "JNKS": 2.0, "JPEA": 2.0, "IEAC": 1.5, "JEUG": 1.0,
+    "QDIV": 2.0, "QDVR": 2.0, "QDVS": 3.0,
 }
 
 # Commission estimate: £0 for retail (most brokers now), $0.005/share for institutional

@@ -28,6 +28,19 @@ def get_tickers(cfg: dict) -> list[str]:
     return sorted(set(tickers))
 
 
+def _dl_tickers(tickers: list[str], cfg: dict) -> tuple[list[str], dict[str, str]]:
+    """
+    Apply exchange suffix (e.g. '.L' for LSE) to ticker symbols for yfinance.
+    Returns (download_tickers, reverse_map) so results can be renamed back.
+    """
+    suffix = cfg.get("data", {}).get("exchange_suffix", "")
+    if not suffix:
+        return tickers, {}
+    dl = [t + suffix for t in tickers]
+    reverse = {t + suffix: t for t in tickers}   # "VUSA.L" -> "VUSA"
+    return dl, reverse
+
+
 # ---------------------------------------------------------------------------
 # Download
 # ---------------------------------------------------------------------------
@@ -230,13 +243,22 @@ def refresh_data(
 
     cfg     = load_config(config_path)
     tickers = get_tickers(cfg)
+    dl_tickers, reverse_map = _dl_tickers(tickers, cfg)
     start_new = (last_date + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
     print(f"Fetching new price data from {start_new} to today...")
 
-    new_raw = download_prices(tickers, start=start_new)
+    new_raw = download_prices(dl_tickers, start=start_new)
     if new_raw.empty:
         print("No new data returned — market may be closed.")
         return existing
+
+    # Strip exchange suffix
+    if reverse_map and isinstance(new_raw.columns, pd.MultiIndex):
+        new_raw.columns = pd.MultiIndex.from_tuples(
+            [(reverse_map.get(t, t), f) for t, f in new_raw.columns]
+        )
+    elif reverse_map:
+        new_raw.columns = [reverse_map.get(c, c) for c in new_raw.columns]
 
     new_prices = clean_prices(new_raw, price_field=cfg["data"]["price_col"])
 
@@ -276,13 +298,22 @@ def run_data_pipeline(config_path: str = "config/universe.yaml") -> dict:
     """
     cfg = load_config(config_path)
     tickers = get_tickers(cfg)
+    dl_tickers, reverse_map = _dl_tickers(tickers, cfg)
     start = cfg["data"]["start_date"]
     raw_dir = cfg["data"]["raw_dir"]
     proc_dir = cfg["data"]["processed_dir"]
     rf_ticker = cfg["data"]["risk_free_ticker"]
 
-    print(f"Downloading {len(tickers)} tickers from {start} …")
-    raw = download_prices(tickers, start=start)
+    print(f"Downloading {len(dl_tickers)} tickers from {start} …")
+    raw = download_prices(dl_tickers, start=start)
+
+    # Strip exchange suffix from column names so downstream code uses clean names
+    if reverse_map and isinstance(raw.columns, pd.MultiIndex):
+        raw.columns = pd.MultiIndex.from_tuples(
+            [(reverse_map.get(t, t), f) for t, f in raw.columns]
+        )
+    elif reverse_map:
+        raw.columns = [reverse_map.get(c, c) for c in raw.columns]
 
     print("Estimating bid-ask spreads …")
     spreads = estimate_bid_ask_spreads(raw)

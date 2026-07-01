@@ -26,10 +26,22 @@ PERIODS = 12
 
 # Estimated half-spread in bps for each ETF (based on typical bid/ask)
 TYPICAL_SPREAD_BPS = {
+    # US-listed (legacy)
     "SPY": 0.3, "QQQ": 0.3, "IWM": 0.5, "VGK": 1.0, "EEM": 0.5,
     "TLT": 0.5, "IEF": 0.5, "SHY": 0.3, "BIL": 0.2,
     "GLD": 0.5, "SLV": 1.5, "DBC": 1.5, "USO": 1.5, "UNG": 3.0,
     "VNQ": 0.8,
+    # UCITS — LSE listed (half-spread estimates in bps)
+    "VUSA": 0.5, "EQQQ": 0.5, "R2US": 1.0,
+    "IWDA": 0.5, "VWRP": 0.5, "WSML": 1.5,
+    "EUNK": 1.0, "IJPN": 1.5, "EIMI": 1.0,
+    "NDIA": 2.0, "XCS6": 2.0, "LTMC": 3.0,
+    "QDVE": 1.0, "HEAL": 2.0, "BNKS": 2.0,
+    "WNRG": 2.0, "INSW": 2.0, "MACG": 2.0, "QNTG": 5.0,
+    "IWDP": 2.0, "SGLN": 0.5, "CMOD": 2.0,
+    "AGGH": 1.0, "IGLA": 1.0, "LQDS": 1.5,
+    "JNKS": 2.0, "JPEA": 2.0, "IEAC": 1.5, "JEUG": 1.0,
+    "QDIV": 2.0, "QDVR": 2.0, "QDVS": 3.0,
 }
 
 

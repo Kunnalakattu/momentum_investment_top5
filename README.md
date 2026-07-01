@@ -1,12 +1,12 @@
 # Momentum Investment System — Top 5 ETF Portfolio
 
-A systematic, rules-based cross-asset momentum strategy that selects the top 5 ETFs from a 15-asset universe each month, filtered by a 200-day moving average trend rule and weighted using Hierarchical Risk Parity (HRP).
+A systematic, rules-based cross-asset momentum strategy that selects the top 5 ETFs from a 32-asset UCITS universe each month, filtered by a 200-day moving average trend rule and weighted using Hierarchical Risk Parity (HRP). All ETFs are LSE-listed UCITS funds, accessible to UK/EU investors.
 
 ## Strategy Summary
 
 | Metric | Value |
 |--------|-------|
-| Universe | 15 ETFs across Equity, Bonds, Commodities, Real Estate |
+| Universe | 32 UCITS ETFs across 7 asset classes |
 | Selection | Top 5 by composite momentum score (3M / 6M / 12M) |
 | Filter | Price > 200-day moving average |
 | Weighting | Hierarchical Risk Parity (HRP) |
@@ -16,15 +16,17 @@ A systematic, rules-based cross-asset momentum strategy that selects the top 5 E
 | Max Drawdown | ~-13% |
 | Governance | 7/8 PASS → GO |
 
-## Universe
+## Universe (32 UCITS ETFs, LSE-listed)
 
-| Asset Class | ETFs |
-|-------------|------|
-| US Equity | SPY, QQQ, IWM |
-| International Equity | VGK, EEM |
-| Bonds | TLT, IEF, SHY, BIL |
-| Commodities | GLD, SLV, DBC, USO, UNG |
-| Real Estate | VNQ |
+| Category | Tickers | Coverage |
+|----------|---------|----------|
+| US Equity | VUSA, EQQQ, R2US | S&P 500, Nasdaq-100, Russell 2000 |
+| World Equity | IWDA, VWRP, WSML | Developed world, All-world, Small cap |
+| Regional | EUNK, IJPN, EIMI, NDIA, XCS6, LTMC | Europe, Japan, EM, India, China, LatAm |
+| Sectors | QDVE, HEAL, BNKS, WNRG, INSW, MACG, QNTG | Tech, Health, Banks, Energy, Industrials, Staples, Quantum |
+| Real Assets | IWDP, SGLN, CMOD | REITs, Gold, Commodities |
+| Bonds | AGGH, IGLA, LQDS, JNKS, JPEA, IEAC, JEUG | Global agg, Govt, IG corp, HY, EM, EUR corp, EUR govt |
+| Factor/ESG | QDIV, QDVR, QDVS | Quality dividend, SRI, EM SRI |
 
 ## Project Structure
 
@@ -144,6 +146,6 @@ Thresholds are fixed before investing and never adjusted retroactively.
 
 - Past backtest performance does not guarantee future results.
 - This system is for informational purposes. Always do your own due diligence.
-- ETFs trade in USD. Currency risk applies for non-USD accounts.
-- The strategy can underperform SPY during strong bull markets (2023–2024 AI rally).
+- ETFs are LSE-listed in GBP. Underlying asset currency risk still applies (e.g. USD-hedged vs unhedged share classes).
+- The strategy can underperform a simple world tracker during strong bull markets (e.g. 2023–2024 US tech rally).
 - At £1,000 portfolio size, whole-share rounding means some positions may not be fully funded — enable fractional shares if your broker supports it.
