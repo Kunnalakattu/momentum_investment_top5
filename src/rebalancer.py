@@ -42,6 +42,10 @@ TYPICAL_SPREAD_BPS = {
     "AGGH": 1.0, "IGLA": 1.0, "LQDS": 1.5,
     "JNKS": 2.0, "JPEA": 2.0, "IEAC": 1.5, "JEUG": 1.0,
     "QDIV": 2.0, "QDVR": 2.0, "QDVS": 3.0,
+    # New country / theme additions
+    "HUKX": 0.5, "HMXJ": 1.5, "HMCA": 2.5,
+    "HKOR": 2.0, "HTWN": 2.0, "HBRL": 3.0, "HCAN": 2.0,
+    "IB01": 0.5, "LOCG": 2.0,
 }
 
 

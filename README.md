@@ -16,16 +16,16 @@ A systematic, rules-based cross-asset momentum strategy that selects the top 5 E
 | Max Drawdown | ~-13% |
 | Governance | 7/8 PASS → GO |
 
-## Universe (32 UCITS ETFs, LSE-listed)
+## Universe (41 UCITS ETFs, LSE-listed)
 
 | Category | Tickers | Coverage |
 |----------|---------|----------|
 | US Equity | VUSA, EQQQ, R2US | S&P 500, Nasdaq-100, Russell 2000 |
 | World Equity | IWDA, VWRP, WSML | Developed world, All-world, Small cap |
-| Regional | EUNK, IJPN, EIMI, NDIA, XCS6, LTMC | Europe, Japan, EM, India, China, LatAm |
+| Regional | EUNK, HUKX, HMXJ, IJPN, EIMI, NDIA, XCS6, HMCA, HKOR, HTWN, HBRL, HCAN, LTMC | Europe, UK, Pacific ex-Japan, Japan, EM, India, China H&A, Korea, Taiwan, Brazil, Canada, LatAm |
 | Sectors | QDVE, HEAL, BNKS, WNRG, INSW, MACG, QNTG | Tech, Health, Banks, Energy, Industrials, Staples, Quantum |
 | Real Assets | IWDP, SGLN, CMOD | REITs, Gold, Commodities |
-| Bonds | AGGH, IGLA, LQDS, JNKS, JPEA, IEAC, JEUG | Global agg, Govt, IG corp, HY, EM, EUR corp, EUR govt |
+| Bonds | IB01, AGGH, IGLA, LQDS, JNKS, JPEA, LOCG, IEAC, JEUG | Cash proxy, Global agg, Govt, IG corp, HY, EM USD, EM local, EUR corp, EUR govt |
 | Factor/ESG | QDIV, QDVR, QDVS | Quality dividend, SRI, EM SRI |
 
 ## Project Structure

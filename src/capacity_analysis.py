@@ -46,6 +46,10 @@ TYPICAL_SPREAD_BPS = {
     "AGGH": 1.0, "IGLA": 1.0, "LQDS": 1.5,
     "JNKS": 2.0, "JPEA": 2.0, "IEAC": 1.5, "JEUG": 1.0,
     "QDIV": 2.0, "QDVR": 2.0, "QDVS": 3.0,
+    # New country / theme additions
+    "HUKX": 0.5, "HMXJ": 1.5, "HMCA": 2.5,
+    "HKOR": 2.0, "HTWN": 2.0, "HBRL": 3.0, "HCAN": 2.0,
+    "IB01": 0.5, "LOCG": 2.0,
 }
 
 # Commission estimate: £0 for retail (most brokers now), $0.005/share for institutional
@@ -76,6 +80,10 @@ def compute_adv(prices: pd.DataFrame, lookback_days: int = 252) -> pd.Series:
         "AGGH":  80,  "IGLA":  60,  "LQDS":  20,
         "JNKS":  15,  "JPEA":  10,  "IEAC":  25,  "JEUG": 20,
         "QDIV":  10,  "QDVR":   8,  "QDVS":   5,
+        # New country / theme additions
+        "HUKX": 80,  "HMXJ": 20,  "HMCA": 15,
+        "HKOR": 12,  "HTWN": 15,  "HBRL":  8,  "HCAN": 10,
+        "IB01": 50,  "LOCG": 10,
     }
     adv = pd.Series({t: v * 1e6 * GBP_TO_USD for t, v in ADV_GBP_M.items()})
     return adv
