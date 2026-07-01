@@ -1,0 +1,16 @@
+pandas
+numpy
+scipy
+matplotlib
+yfinance
+statsmodels
+scikit-learn
+jupyter
+ipykernel
+quantstats
+PyPortfolioOpt
+riskfolio-lib
+openpyxl
+pyarrow
+pyyaml
+pandas-datareader
