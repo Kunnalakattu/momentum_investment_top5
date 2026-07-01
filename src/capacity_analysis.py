@@ -63,15 +63,21 @@ def compute_adv(prices: pd.DataFrame, lookback_days: int = 252) -> pd.Series:
     as a proxy, but here we load actual volume if stored.
     Falls back to published ETF AUM-based ADV estimates when not available.
     """
-    # Published 90-day ADV (USD millions) for these ETFs — from Bloomberg / ETF.com
-    # Deliberately conservative (use 3-year average, not peak)
-    ADV_USD_M = {
-        "SPY": 28_500,  "QQQ": 14_000,  "IWM":  4_800,  "VGK":   120,   "EEM":  1_800,
-        "TLT":  2_200,  "IEF":    800,  "SHY":    600,  "BIL":    400,
-        "GLD":  1_200,  "SLV":    600,  "DBC":     60,  "USO":    400,  "UNG":    250,
-        "VNQ":    500,
+    # Estimated 90-day ADV (GBP millions) for LSE-listed UCITS ETFs
+    # Source: LSE SETS order book; conservative 3-year averages converted to USD at ~1.27
+    ADV_GBP_M = {
+        "VUSA": 250,  "EQQQ": 180,  "R2US":  20,
+        "IWDA": 300,  "VWRP": 200,  "WSML":  30,
+        "EUNK":  40,  "IJPN":  25,  "EIMI":  80,
+        "NDIA":  15,  "XCS6":  10,  "LTMC":   5,
+        "QDVE":  30,  "HEAL":  10,  "BNKS":  15,
+        "WNRG":  10,  "INSW":   8,  "MACG":   8,  "QNTG":  2,
+        "IWDP":  20,  "SGLN": 120,  "CMOD":  15,
+        "AGGH":  80,  "IGLA":  60,  "LQDS":  20,
+        "JNKS":  15,  "JPEA":  10,  "IEAC":  25,  "JEUG": 20,
+        "QDIV":  10,  "QDVR":   8,  "QDVS":   5,
     }
-    adv = pd.Series({t: v * 1e6 for t, v in ADV_USD_M.items()})
+    adv = pd.Series({t: v * 1e6 * GBP_TO_USD for t, v in ADV_GBP_M.items()})
     return adv
 
 

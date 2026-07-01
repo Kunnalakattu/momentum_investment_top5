@@ -32,12 +32,13 @@ REPORT_COLS = ["Sharpe", "Sortino", "Calmar", "Max DD %", "Ann Return %", "Ann V
 BASE_LABEL  = "BASE"
 N_TOP       = 5
 METHOD      = "hrp"
-START_DATE  = "2005-01-03"
+START_DATE  = "2010-01-04"
 
-UNIVERSE_10 = ["SPY", "QQQ", "IWM", "VGK", "EEM", "TLT", "IEF", "GLD", "VNQ", "SHY"]
-UNIVERSE_15 = UNIVERSE_10 + ["BIL", "SLV", "DBC", "USO", "UNG"]
-UNIVERSE_20_ADD = ["XLK", "XLE", "XLF", "XLV", "XLI"]
-UNIVERSE_30_ADD = UNIVERSE_20_ADD + ["EWJ", "EWZ", "FXI", "EFA", "HYG", "LQD", "AGG", "MDY", "RSP", "XLU"]
+# UCITS universe subsets for robustness testing (tickers without .L suffix)
+UNIVERSE_10 = ["VUSA", "EQQQ", "IWDA", "EIMI", "SGLN", "AGGH", "IGLA", "IWDP", "EUNK", "CMOD"]
+UNIVERSE_15 = UNIVERSE_10 + ["VWRP", "IJPN", "WNRG", "BNKS", "JNKS"]
+UNIVERSE_20_ADD = ["QDVE", "HEAL", "NDIA", "XCS6", "R2US"]
+UNIVERSE_30_ADD = UNIVERSE_20_ADD + ["WSML", "LTMC", "LQDS", "JPEA", "IEAC", "JEUG", "QDIV", "QDVR", "QDVS", "QNTG"]
 
 
 # ─────────────────────────────────────────────────────────────────────────────

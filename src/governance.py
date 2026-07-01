@@ -62,7 +62,7 @@ def _check_walk_forward(proc_dir: str) -> dict:
 
     bt = pd.read_parquet(f"{proc_dir}/backtest_returns.parquet")
     hrp = bt["D: HRP"].dropna()
-    spy = bt["SPY B&H"].dropna()
+    spy = bt["VUSA B&H"].dropna()
     rf  = pd.Series(0.0, index=hrp.index)
 
     wf_df = run_walk_forward(hrp, spy, rf)
@@ -154,7 +154,7 @@ def _check_cost_sensitivity(proc_dir: str) -> dict:
 def _check_regime(proc_dir: str) -> dict:
     bt = pd.read_parquet(f"{proc_dir}/backtest_returns.parquet")
     hrp = bt["D: HRP"].dropna()
-    spy = bt["SPY B&H"].dropna()
+    spy = bt["VUSA B&H"].dropna()
     rf  = pd.Series(0.0, index=hrp.index)
 
     from src.regime_analysis import build_regime_table

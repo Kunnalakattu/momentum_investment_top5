@@ -11,7 +11,7 @@ Strategies tested (all use Top-5 + 200DMA filter, 10bp one-way cost):
   C+ : Risk parity  + 10% vol target
   D+ : HRP          + 10% vol target
 
-Benchmark: SPY buy-and-hold.
+Benchmark: VUSA buy-and-hold (S&P 500 UCITS).
 """
 
 import numpy as np
@@ -165,11 +165,12 @@ def run_all_backtests(
     rf_daily   = load_risk_free_rate()
     rf_monthly = (1 + rf_daily).resample("ME").prod() - 1
 
-    # SPY benchmark (buy-and-hold)
-    spy_ret = me_returns["SPY"].dropna().rename("SPY B&H")
+    # VUSA benchmark (S&P 500 UCITS, buy-and-hold)
+    bench_col = "VUSA" if "VUSA" in me_returns.columns else me_returns.columns[0]
+    spy_ret = me_returns[bench_col].dropna().rename("VUSA B&H")
 
-    results = {"SPY B&H": {"returns": spy_ret, "metrics": compute_metrics(spy_ret, rf_monthly),
-                            "weights": None}}
+    results = {"VUSA B&H": {"returns": spy_ret, "metrics": compute_metrics(spy_ret, rf_monthly),
+                             "weights": None}}
 
     methods = ["equal", "inv_vol", "risk_parity", "hrp"]
     labels  = {"equal": "A: Equal", "inv_vol": "B: Inv Vol",

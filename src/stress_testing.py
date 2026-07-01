@@ -26,10 +26,10 @@ PERIODS = 12
 # Universe classification
 # ─────────────────────────────────────────────────────────────────────────────
 ASSET_CLASSES = {
-    "Equity":      ["SPY", "QQQ", "IWM", "VGK", "EEM"],
-    "Bonds":       ["TLT", "IEF", "SHY", "BIL"],
-    "Commodities": ["GLD", "SLV", "DBC", "USO", "UNG"],
-    "Real Estate": ["VNQ"],
+    "Equity":      ["VUSA", "EQQQ", "IWDA", "EUNK", "EIMI"],
+    "Bonds":       ["AGGH", "IGLA", "LQDS", "JNKS"],
+    "Commodities": ["SGLN", "CMOD", "WNRG"],
+    "Real Estate": ["IWDP"],
 }
 
 
@@ -296,7 +296,7 @@ def print_stress_results(stress_df: pd.DataFrame, tail_risk: dict) -> None:
 
     # Tail risk
     print(f"\n  Tail Risk — Full Period (annualised)")
-    print(f"  {'Metric':<30} {'HRP':>10}  {'SPY':>10}  {'Ratio':>8}")
+    print(f"  {'Metric':<30} {'HRP':>10}  {'VUSA':>10}  {'Ratio':>8}")
     print(f"  {'─'*30} {'─'*10}  {'─'*10}  {'─'*8}")
     print(f"  {'VaR (5%, monthly ann)':30} {tail_risk['hrp_var5']*100:>+9.1f}%  "
           f"{tail_risk['spy_var5']*100:>+9.1f}%  "
@@ -344,7 +344,8 @@ def run_stress_testing(
 
     me_prices = prices.resample("ME").last()
     me_returns = me_prices.pct_change().dropna()
-    spy_ret   = me_returns["SPY"]
+    bench_col = "VUSA" if "VUSA" in me_returns.columns else me_returns.columns[0]
+    spy_ret   = me_returns[bench_col]
 
     signals   = load_signals(proc_dir)
     weights_df = build_weight_matrix(signals, me_returns, n_top=5, method="hrp")

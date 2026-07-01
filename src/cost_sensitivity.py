@@ -83,7 +83,7 @@ def run_cost_sensitivity(
             "Sharpe":         m["Sharpe"],
             "MaxDD %":        m["MaxDD %"],
             "Calmar":         m["Calmar"],
-            "vs SPY CAGR":    round(m["CAGR %"] - spy_m["CAGR %"], 2),
+            "vs VUSA CAGR":    round(m["CAGR %"] - spy_m["CAGR %"], 2),
             "Viable":         (
                 "✓ YES" if m["Sharpe"] > 0.7 and m["CAGR %"] > 0
                 else "~ OK" if m["Sharpe"] > 0.4 and m["CAGR %"] > 0
@@ -99,7 +99,7 @@ def print_cost_sensitivity(df: pd.DataFrame, annual_turnover: float) -> None:
     print(f"  Annual turnover: {annual_turnover*100:.0f}%  (one-way)")
     print(f"{'='*75}")
     print(f"  {'Cost':>9}  {'CAGR%':>7}  {'Sharpe':>7}  {'MaxDD%':>7}  "
-          f"{'Calmar':>7}  {'vs SPY':>7}  Viable")
+          f"{'Calmar':>7}  {'vs VUSA':>7}  Viable")
     print(f"  {'─'*9}  {'─'*7}  {'─'*7}  {'─'*7}  {'─'*7}  {'─'*7}  {'─'*8}")
     for cost, row in df.iterrows():
         star = "  ← gross (0 cost)" if cost == 0 else ""
@@ -108,7 +108,7 @@ def print_cost_sensitivity(df: pd.DataFrame, annual_turnover: float) -> None:
               f"{row['Sharpe']:>7.3f}  "
               f"{row['MaxDD %']:>+6.2f}%  "
               f"{row['Calmar']:>7.3f}  "
-              f"{row['vs SPY CAGR']:>+6.2f}%  "
+              f"{row['vs VUSA CAGR']:>+6.2f}%  "
               f"{row['Viable']}{star}")
 
     # Find break-even cost
@@ -138,7 +138,8 @@ def run_cost_sensitivity_pipeline(
 
     bt_rets = load_backtest_returns(proc_dir)
     hrp_ret = bt_rets["D: HRP"].dropna()
-    spy_ret = prices.resample("ME").last()["SPY"].pct_change().dropna()
+    bench_col = "VUSA" if "VUSA" in prices.columns else prices.columns[0]
+    spy_ret = prices.resample("ME").last()[bench_col].pct_change().dropna()
 
     signals    = load_signals(proc_dir)
     me_returns = prices.resample("ME").last().pct_change().dropna()

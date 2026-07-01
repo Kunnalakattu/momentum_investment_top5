@@ -346,8 +346,8 @@ def monte_carlo_permutation(
     print(f"    Percentile rank             : {pct_rank_cs*100:.2f}th percentile")
     if bench_sh:
         p_beat_spy = float((rand_sh >= bench_sh).mean())
-        print(f"    SPY Sharpe                  : {bench_sh:.4f}")
-        print(f"    P(random ≥ SPY Sharpe)      : {p_beat_spy:.4f}")
+        print(f"    VUSA Sharpe                  : {bench_sh:.4f}")
+        print(f"    P(random ≥ VUSA Sharpe)      : {p_beat_spy:.4f}")
 
     return {
         "c1_temporal": {
@@ -381,7 +381,7 @@ def reality_check(
     """
     Randomly set X% of months to risk-free return.
     Simulates missed signals, execution failures, data gaps.
-    Asks: would the strategy still beat SPY if we missed that fraction of trades?
+    Asks: would the strategy still beat VUSA if we missed that fraction of trades?
     """
     n      = len(returns)
     ret_a  = returns.values.astype(float)
@@ -397,9 +397,9 @@ def reality_check(
     print(f"{'─'*55}")
     print(f"  Observed Sharpe   : {obs_sh:.4f}")
     if spy_sh:
-        print(f"  SPY Sharpe        : {spy_sh:.4f}")
+        print(f"  VUSA Sharpe        : {spy_sh:.4f}")
     print(f"\n  {'Removal':>10}  {'Mean Sh':>8}  {'5th pct':>8}  {'95th pct':>8}  "
-          f"{'P>0':>6}  {'P>SPY':>7}  {'Still profitable':>16}")
+          f"{'P>0':>6}  {'P>VUSA':>7}  {'Still profitable':>16}")
     print(f"  {'─'*10}  {'─'*8}  {'─'*8}  {'─'*8}  {'─'*6}  {'─'*7}  {'─'*16}")
 
     for rate in removal_rates:
@@ -462,7 +462,8 @@ def run_stats_validation(
 
     bt_rets   = load_backtest_returns(proc_dir)
     hrp_ret   = bt_rets["D: HRP"].dropna()
-    spy_ret   = prices.resample("ME").last()["SPY"].pct_change().dropna()
+    bench_col = "VUSA" if "VUSA" in prices.columns else prices.columns[0]
+    spy_ret   = prices.resample("ME").last()[bench_col].pct_change().dropna()
     fwd       = compute_me_forward_returns(prices)
 
     print("\n" + "=" * 60)

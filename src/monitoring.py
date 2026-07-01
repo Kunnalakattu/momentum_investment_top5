@@ -89,7 +89,7 @@ def performance_summary(
     rf_monthly: pd.Series,
     report_date: pd.Timestamp = None,
 ) -> dict:
-    """MTD, YTD, 1Y, 3Y, 5Y, ITD CAGR and Sharpe for strategy vs SPY."""
+    """MTD, YTD, 1Y, 3Y, 5Y, ITD CAGR and Sharpe for strategy vs VUSA."""
     if report_date is None:
         report_date = hrp_ret.index[-1]
 
@@ -120,12 +120,12 @@ def performance_summary(
     spy = spy_ret.reindex(hrp_ret.index).fillna(0)
 
     return {
-        "MTD":   {"HRP": _m(hrp_ret, periods_back=1), "SPY": _m(spy, periods_back=1)},
-        "YTD":   {"HRP": _m(hrp_ret, start=ytd_start), "SPY": _m(spy, start=ytd_start)},
-        "1Y":    {"HRP": _m(hrp_ret, start=one_y_start), "SPY": _m(spy, start=one_y_start)},
-        "3Y":    {"HRP": _m(hrp_ret, start=three_y_start), "SPY": _m(spy, start=three_y_start)},
-        "5Y":    {"HRP": _m(hrp_ret, start=five_y_start), "SPY": _m(spy, start=five_y_start)},
-        "ITD":   {"HRP": _m(hrp_ret), "SPY": _m(spy)},
+        "MTD":   {"HRP": _m(hrp_ret, periods_back=1), "VUSA": _m(spy, periods_back=1)},
+        "YTD":   {"HRP": _m(hrp_ret, start=ytd_start), "VUSA": _m(spy, start=ytd_start)},
+        "1Y":    {"HRP": _m(hrp_ret, start=one_y_start), "VUSA": _m(spy, start=one_y_start)},
+        "3Y":    {"HRP": _m(hrp_ret, start=three_y_start), "VUSA": _m(spy, start=three_y_start)},
+        "5Y":    {"HRP": _m(hrp_ret, start=five_y_start), "VUSA": _m(spy, start=five_y_start)},
+        "ITD":   {"HRP": _m(hrp_ret), "VUSA": _m(spy)},
     }
 
 
@@ -180,11 +180,11 @@ def print_monthly_report(
 
     # Performance table
     print(f"\n  PERFORMANCE SUMMARY")
-    print(f"  {'Period':<8}  {'HRP CAGR':>10}  {'HRP Sharpe':>11}  {'HRP MaxDD':>10}  {'SPY CAGR':>10}  {'Active':>8}")
+    print(f"  {'Period':<8}  {'HRP CAGR':>10}  {'HRP Sharpe':>11}  {'HRP MaxDD':>10}  {'VUSA CAGR':>10}  {'Active':>8}")
     print(f"  {'─'*8}  {'─'*10}  {'─'*11}  {'─'*10}  {'─'*10}  {'─'*8}")
     for period, d in perf.items():
         h = d["HRP"]
-        s = d["SPY"]
+        s = d["VUSA"]
         if np.isnan(h.get("CAGR %", np.nan)):
             continue
         active = round(h["CAGR %"] - s["CAGR %"], 2) if not np.isnan(s.get("CAGR %", np.nan)) else np.nan
@@ -242,7 +242,8 @@ def run_monitoring(
     bt_rets    = load_backtest_returns(proc_dir)
     hrp_ret    = bt_rets["D: HRP"].dropna()
     me_prices  = prices.resample("ME").last()
-    spy_ret    = me_prices["SPY"].pct_change().dropna()
+    bench_col  = "VUSA" if "VUSA" in me_prices.columns else me_prices.columns[0]
+    spy_ret    = me_prices[bench_col].pct_change().dropna()
 
     port       = get_current_portfolio(signals, prices, returns, proc_dir)
     perf       = performance_summary(hrp_ret, spy_ret, rf_monthly)
